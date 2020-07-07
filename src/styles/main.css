@@ -24,8 +24,12 @@ body{
     position: relative;
 }
 
-
-
+.perfil{
+    display: none;
+}
+.ativar{
+    display: block;
+}
 footer{
     display: flex;
     
@@ -35,7 +39,9 @@ footer{
 
 header{
     display: flex;
+    
 }
+
 
 .btnSys{
     border-radius: 15px;
@@ -104,7 +110,7 @@ header{
     color: black;
 }
 
-#btnTest{
+.btnTest{
     float: right;
     margin-left: 5px;
     text-transform: uppercase;

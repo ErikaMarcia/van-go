@@ -1,5 +1,5 @@
-console.log("Entrei login");
 function login(event) {
+    console.log("Entrei login");
     event.preventDefault()
     var username = document.getElementById('username').value;
     var senha = document.getElementById('senha').value;
@@ -13,6 +13,8 @@ function login(event) {
             if (username === tbmotoristasJSON.email && senha === tbmotoristasJSON.senha) {
                 verifica = true;
                 Swal.fire('Perfil em construção')
+                
+
             }
         }
     }
@@ -25,11 +27,14 @@ function login(event) {
             }
 
         }
-
+        
     }
     if (verifica === false) {
         var texto = "E-mail ou senha incorreta";
         erro(texto);
+    }else{
+        console.log("else");
+        $(".perfil").removeClass("perfil");
     }
 }
 function redefinirSenha(event) {
@@ -51,7 +56,7 @@ function redefinirSenha(event) {
                 const email = JSON.stringify(result.value);
                 var emailJSON = JSON.parse(email);
                 var verifica = false;
-                
+
                 if (tbmotoristas) {
                     for (i = 0; i < tbmotoristas.length; i++) {
                         var tbmotoristasJSON = JSON.parse(tbmotoristas[i]);
@@ -61,20 +66,20 @@ function redefinirSenha(event) {
                             console.log("motorista email ok");
                             var tbNome = "tbmotoristas";
                             var tb = tbmotoristas;
-                            senha(tbmotoristasJSON,tbNome,tb);
+                            senha(tbmotoristasJSON, tbNome, tb);
                         }
-                        
+
                     }
                 }
                 if (tbuniversitarios) {
                     for (i = 0; i < tbuniversitarios.length; i++) {
                         var tbuniversitariosJSON = JSON.parse(tbuniversitarios[i]);
-                        
+
 
                         if (emailJSON == tbuniversitariosJSON.email) {
                             verifica = true;
                             var tbNome = "tbuniversitarios";
-                            senha(tbuniversitariosJSON,tbNome);
+                            senha(tbuniversitariosJSON, tbNome);
                         }
 
                     }
@@ -86,50 +91,50 @@ function redefinirSenha(event) {
                 }
             }
         })
-        
+
 
 
 }
-function senha(tbJSON,tbNome,tb){
-        /*Ainda não está funcionando*/
-        console.log("entrei senha");
-        console.log(tbJSON);
-        
-        Swal.mixin({
-            input: 'password',
-            confirmButtonText: ' Continuar',
-            cancelButtonText: ' Cancelar',
-            showCancelButton: true,
-            progressSteps: ['2']
-        }).queue([
-            {
-                title: 'Digite sua nova senha',
+function senha(tbJSON, tbNome, tb) {
+    /*Ainda não está funcionando*/
+    console.log("entrei senha");
+    console.log(tbJSON);
 
-            }]).then((result) => {
-                if (result.value) {
-                    const novaSenha = JSON.stringify(result.value);
-                    var senhaJSON = JSON.parse(novaSenha);
-                    if(tbNome==="tbmotoristas"){ 
+    Swal.mixin({
+        input: 'password',
+        confirmButtonText: ' Continuar',
+        cancelButtonText: ' Cancelar',
+        showCancelButton: true,
+        progressSteps: ['2']
+    }).queue([
+        {
+            title: 'Digite sua nova senha',
+
+        }]).then((result) => {
+            if (result.value) {
+                const novaSenha = JSON.stringify(result.value);
+                var senhaJSON = JSON.parse(novaSenha);
+                if (tbNome === "tbmotoristas") {
                     tb.senha = senhaJSON;
                     localStorage.setItem(tbNome, JSON.stringify(tb));
 
-                    }else if(tbNome==="tbuniversitarios"){
+                } else if (tbNome === "tbuniversitarios") {
 
-                        localStorage.setItem("tbuniversitarios", JSON.stringify(tbuniversitarios));
-                    }
+                    localStorage.setItem("tbuniversitarios", JSON.stringify(tbuniversitarios));
+                }
 
-                    console.log(novaSenha);
+                console.log(novaSenha);
 
-                    Swal.fire({
-                        title: '',
-                        html: `
+                Swal.fire({
+                    title: '',
+                    html: `
       Senha alterada com sucesso!
     `,
-                        confirmButtonText: 'Ok'
-                    })
-                }
-            })
-    
+                    confirmButtonText: 'Ok'
+                })
+            }
+        })
+
 }
 function erro(texto) {
     Swal.fire({
